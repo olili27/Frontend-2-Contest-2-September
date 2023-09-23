@@ -1,0 +1,157 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* header */
+header {
+  height: 76px;
+  background: #000000;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  padding-inline-start: 1rem;
+}
+
+header h1 {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 29px;
+  letter-spacing: 0em;
+}
+
+/* main section */
+main {
+  min-height: 906px;
+  background: #cdcdcd;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* search container */
+.search-container-top {
+  flex: 1;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-input-container {
+  flex: 4;
+  height: 100%;
+  color: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1226px;
+}
+
+#search-input {
+  width: 100%;
+  padding: 0.85rem;
+  border: 1px solid;
+  outline: none;
+  background: #d9d9d9;
+}
+
+::placeholder {
+    font-size: 16px;
+}
+
+#search-btn {
+  margin-inline-start: 10px;
+  flex: 1;
+  height: 100%;
+  background-color: #000000;
+  color: #ffffff;
+  padding-block: 0.9rem;
+  font-weight: 400px;
+  font-size: 18px;
+}
+
+/* filters container */
+.filters-container-middle {
+  flex: 1;
+  height: 50px;
+  display: flex;
+  width: 1280px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter {
+  background-color: #000000;
+  color: #ffffff;
+  width: 170px;
+  font-weight: 400px;
+  padding-block: 0.7rem;
+  line-height: 29px;
+  letter-spacing: 0em;
+  outline: none;
+  font-size: 16px;
+}
+
+/* table container */
+.table-container-bottom {
+  margin-top: 1rem;
+  flex: 10;
+  width: 1280px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-weight: 400px;
+  font-size: 18px;
+}
+
+table {
+  width: 100%;
+  border: 1px solid;
+  border-collapse: collapse;
+}
+
+tr,
+th,
+td {
+  border: 1px solid;
+  padding: 10px;
+  font-weight: 400px;
+  font-size: 18px;
+}
+
+th {
+  text-align: left;
+}
+
+th:first-child,
+tr > td:first-child {
+  text-align: center;
+}
+
+th:nth-child(2),
+tr > td:nth-child(2) {
+  width: 25rem;
+}
+
+td div {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+td div img {
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 50%;
+  margin-inline-end: 10px;
+}
+
+th:last-child,
+tr > td:last-child {
+  width: 20rem;
+}
