@@ -23,7 +23,26 @@ async function fetchStudents() {
 async function displayStudentInformation(students) {
   if (students == undefined) students = await fetchStudents();
 
-  tableBody.innerHTML = "";
+  tableContainer.innerHTML = "";
+
+  let table = document.createElement("table");
+  let tableHead = document.createElement("thead");
+  tableHead.innerHTML = `
+        <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Class</th>
+              <th>Marks</th>
+              <th>Passing</th>
+              <th>Email</th>
+        </tr>
+    `;
+
+  table.appendChild(tableHead);
+
+  let tableBody = document.createElement("tbody");
+
   students.forEach((element) => {
     let tableRow = document.createElement("tr");
     tableRow.innerHTML = `
@@ -43,7 +62,10 @@ async function displayStudentInformation(students) {
         `;
 
     tableBody.appendChild(tableRow);
+    table.appendChild(tableBody);
   });
+
+  tableContainer.append(table);
 }
 
 displayStudentInformation();

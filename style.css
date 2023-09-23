@@ -104,7 +104,7 @@ main {
   width: 1280px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   font-weight: 400px;
   font-size: 18px;
