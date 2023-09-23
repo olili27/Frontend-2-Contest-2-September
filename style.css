@@ -69,7 +69,7 @@ main {
   height: 100%;
   background-color: #000000;
   color: #ffffff;
-  padding-block: 0.9rem;
+  padding-block: 0.8rem;
   font-weight: 400px;
   font-size: 18px;
 }
@@ -90,7 +90,7 @@ main {
   color: #ffffff;
   width: 170px;
   font-weight: 400px;
-  padding-block: 0.7rem;
+  padding-block: 0.6rem;
   line-height: 29px;
   letter-spacing: 0em;
   outline: none;
