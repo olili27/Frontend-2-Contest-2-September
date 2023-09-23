@@ -103,6 +103,7 @@ main {
   flex: 10;
   width: 1280px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   font-weight: 400px;
@@ -113,6 +114,7 @@ table {
   width: 100%;
   border: 1px solid;
   border-collapse: collapse;
+  margin-bottom: 3rem ;
 }
 
 tr,
