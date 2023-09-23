@@ -82,6 +82,7 @@ main {
   width: 1280px;
   justify-content: space-between;
   align-items: center;
+  margin-top: 2rem;
 }
 
 .filter {
@@ -98,7 +99,7 @@ main {
 
 /* table container */
 .table-container-bottom {
-  margin-top: 1rem;
+  margin-top: 2rem;
   flex: 10;
   width: 1280px;
   display: flex;
