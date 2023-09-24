@@ -76,7 +76,7 @@ async function displayStudentInformation(students) {
   tableContainer.append(table);
 }
 
-// function to display student information when the page loads for first time
+// function to display student information that is not sorted by gender
 function displayStudentInformationNotSortedByGender(fetchedStudents) {
   tableContainer.innerHTML = "";
   displayStudentInformation(fetchedStudents);
