@@ -6,19 +6,30 @@ let searchInput = document.getElementById("search-input");
 
 let sortByAZBtn = document.getElementById("sort-az");
 let sortByZABtn = document.getElementById("sort-za");
-let sortByPassingBtn = document.getElementById("sort-passing");
+let sortByPassingGradeBtn = document.getElementById("sort-passing");
 let sortByGenderBtn = document.getElementById("sort-gender");
 let sortByClassBtn = document.getElementById("sort-class");
 let sortByMarksBtn = document.getElementById("sort-marks");
 
+let students;
+
+
+// fetch students and store them
+
 async function fetchStudents() {
-  let response = await fetch(
-    "https://gist.githubusercontent.com/harsh3195/b441881e0020817b84e34d27ba448418/raw/c4fde6f42310987a54ae1bc3d9b8bfbafac15617/demo-json-data.json"
-  );
-  let students = await response.json();
+  if (students === undefined) {
+    let response = await fetch(
+      "https://gist.githubusercontent.com/harsh3195/b441881e0020817b84e34d27ba448418/raw/c4fde6f42310987a54ae1bc3d9b8bfbafac15617/demo-json-data.json"
+    );
+
+    students = await response.json();
+  }
 
   return students;
 }
+
+
+// render students information in a table
 
 async function displayStudentInformation(students) {
   if (students == undefined) students = await fetchStudents();
@@ -70,8 +81,8 @@ async function displayStudentInformation(students) {
 
 displayStudentInformation();
 
-async function searchStudents() {
-  let students = await fetchStudents();
+// search function
+function searchStudents() {
   let searchValue = searchInput.value.toLowerCase();
   searchInput.value = "";
 
@@ -81,67 +92,74 @@ async function searchStudents() {
       element.last_name.toLowerCase().includes(searchValue) ||
       element.email.toLowerCase().includes(searchValue)
   );
+  
   displayStudentInformation(searchResults);
 }
 
 searchBtn.addEventListener("click", searchStudents);
 
-async function sortByAZ() {
-  let students = await fetchStudents();
-  students.sort((a, b) => {
-    return a.first_name + " " + a.last_name > b.first_name + " " + b.last_name;
-  });
+// generic function to sort by AZ or ZA
+function sortByAZ_Or_ZA(flag) {
+
+  if(flag === "AZ") {
+    students.sort((a, b) => {
+      return (
+        a.first_name + " " + a.last_name > b.first_name + " " + b.last_name
+      );
+    });
+  } else if(flag === "ZA") {
+     students.sort((a, b) => {
+       return (
+         a.first_name + " " + a.last_name < b.first_name + " " + b.last_name
+       );
+     });
+  }
 
   displayStudentInformation(students);
 }
 
-sortByAZBtn.addEventListener("click", sortByAZ);
+// sort by AZ
+sortByAZBtn.addEventListener("click", () => {
+  sortByAZ_Or_ZA("AZ");
+})
 
-async function sortByZA() {
-  let students = await fetchStudents();
-  students.sort((a, b) => {
-    return a.first_name + " " + a.last_name < b.first_name + " " + b.last_name;
-  });
+// sort by ZA
+sortByZABtn.addEventListener("click", () => {
+  sortByAZ_Or_ZA("ZA");
+})
 
-  displayStudentInformation(students);
+// generic function to sort by marks or class
+function sortByMarks_Or_Class(flag) {
+   students.sort((a, b) => {
+     return a[flag] > b[flag];
+   });
+
+   displayStudentInformation(students);
 }
 
-sortByZABtn.addEventListener("click", sortByZA);
+// sort by marks
+sortByMarksBtn.addEventListener("click", () => {
+  sortByMarks_Or_Class("marks");
+});
 
-async function sortByPassing() {
-  let students = await fetchStudents();
+// sort by class
+sortByClassBtn.addEventListener("click", () => {
+  sortByMarks_Or_Class("class");
+});
+
+
+function sortByPassingGrade() {
   let passed = students.filter((student) => student.passing);
 
   displayStudentInformation(passed);
 }
 
-sortByPassingBtn.addEventListener("click", sortByPassing);
+sortByPassingGradeBtn.addEventListener("click", sortByPassingGrade);
 
-async function sortByMarks() {
-  let students = await fetchStudents();
-  students.sort((a, b) => {
-    return a.marks > b.marks;
-  });
 
-  displayStudentInformation(students);
-}
-
-sortByMarksBtn.addEventListener("click", sortByMarks);
-
-async function sortByClass() {
-  let students = await fetchStudents();
-  students.sort((a, b) => {
-    return a.class > b.class;
-  });
-
-  displayStudentInformation(students);
-}
-
-sortByClassBtn.addEventListener("click", sortByClass);
 
 
 function displayStudentInformationByGender(students) {
-  
   let table = document.createElement("table");
   let tableHead = document.createElement("thead");
   tableHead.innerHTML = `
@@ -179,21 +197,20 @@ function displayStudentInformationByGender(students) {
         `;
 
     tableBody.appendChild(tableRow);
-    table.appendChild(tableBody)
+    table.appendChild(tableBody);
   });
 
   tableContainer.append(table);
 }
 
 async function sortByGender() {
-  let students = await fetchStudents();
-  let females = students.filter(element => element.gender == "Female");
-   let males = students.filter((element) => element.gender == "Male");
+  let females = students.filter((element) => element.gender == "Female");
+  let males = students.filter((element) => element.gender == "Male");
 
-   tableContainer.innerHTML = "";
+  tableContainer.innerHTML = "";
 
   displayStudentInformationByGender(females);
-  displayStudentInformationByGender(males)
+  displayStudentInformationByGender(males);
 }
 
-sortByGenderBtn.addEventListener('click', sortByGender);
+sortByGenderBtn.addEventListener("click", sortByGender);
