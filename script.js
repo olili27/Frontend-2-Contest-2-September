@@ -81,7 +81,7 @@ async function displayStudentInformation(students) {
 
 displayStudentInformation();
 
-// search function
+// search by firstName, lastName, or email -> not case sensitive
 function searchStudents() {
   let searchValue = searchInput.value.toLowerCase();
   searchInput.value = "";
@@ -92,7 +92,7 @@ function searchStudents() {
       element.last_name.toLowerCase().includes(searchValue) ||
       element.email.toLowerCase().includes(searchValue)
   );
-  
+
   displayStudentInformation(searchResults);
 }
 
@@ -147,7 +147,7 @@ sortByClassBtn.addEventListener("click", () => {
   sortByMarks_Or_Class("class");
 });
 
-
+// sort by passing grade
 function sortByPassingGrade() {
   let passed = students.filter((student) => student.passing);
 
@@ -156,9 +156,7 @@ function sortByPassingGrade() {
 
 sortByPassingGradeBtn.addEventListener("click", sortByPassingGrade);
 
-
-
-
+// function to display information after sorting students by gender
 function displayStudentInformationByGender(students) {
   let table = document.createElement("table");
   let tableHead = document.createElement("thead");
@@ -203,7 +201,8 @@ function displayStudentInformationByGender(students) {
   tableContainer.append(table);
 }
 
-async function sortByGender() {
+// sort and display the males and females
+function sortByGender() {
   let females = students.filter((element) => element.gender == "Female");
   let males = students.filter((element) => element.gender == "Male");
 
