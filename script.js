@@ -29,12 +29,9 @@ async function fetchStudents() {
 }
 
 
-// render students information in a table
-
+// function to render students information in a table
 async function displayStudentInformation(students) {
   if (students == undefined) students = await fetchStudents();
-
-  tableContainer.innerHTML = "";
 
   let table = document.createElement("table");
   let tableHead = document.createElement("thead");
@@ -79,7 +76,13 @@ async function displayStudentInformation(students) {
   tableContainer.append(table);
 }
 
-displayStudentInformation();
+// function to display student information when the page loads for first time
+function displayStudentInformationNotSortedByGender(fetchedStudents) {
+  tableContainer.innerHTML = "";
+  displayStudentInformation(fetchedStudents);
+}
+
+displayStudentInformationNotSortedByGender();
 
 // search by firstName, lastName, or email -> not case sensitive
 function searchStudents() {
@@ -93,7 +96,7 @@ function searchStudents() {
       element.email.toLowerCase().includes(searchValue)
   );
 
-  displayStudentInformation(searchResults);
+  displayStudentInformationNotSortedByGender(searchResults);
 }
 
 searchBtn.addEventListener("click", searchStudents);
@@ -115,7 +118,7 @@ function sortByAZ_Or_ZA(flag) {
      });
   }
 
-  displayStudentInformation(students);
+  displayStudentInformationNotSortedByGender(students);
 }
 
 // sort by AZ
@@ -134,7 +137,7 @@ function sortByMarks_Or_Class(flag) {
      return a[flag] > b[flag];
    });
 
-   displayStudentInformation(students);
+   displayStudentInformationNotSortedByGender(students);
 }
 
 // sort by marks
@@ -151,65 +154,20 @@ sortByClassBtn.addEventListener("click", () => {
 function sortByPassingGrade() {
   let passed = students.filter((student) => student.passing);
 
-  displayStudentInformation(passed);
+  displayStudentInformationNotSortedByGender(passed);
 }
 
 sortByPassingGradeBtn.addEventListener("click", sortByPassingGrade);
 
-// function to display information after sorting students by gender
-function displayStudentInformationByGender(students) {
-  let table = document.createElement("table");
-  let tableHead = document.createElement("thead");
-  tableHead.innerHTML = `
-        <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Gender</th>
-              <th>Class</th>
-              <th>Marks</th>
-              <th>Passing</th>
-              <th>Email</th>
-        </tr>
-    `;
-
-  table.appendChild(tableHead);
-
-  let tableBody = document.createElement("tbody");
-
-  students.forEach((element) => {
-    let tableRow = document.createElement("tr");
-    tableRow.innerHTML = `
-
-              <td>${element.id}</td>
-              <td>
-               <div>
-                 <img src=${element.img_src} alt="student image">
-                <span>${element.first_name} ${element.last_name}</span>
-               </div>
-              </td>
-              <td>${element.gender}</td>
-              <td>${element.class}</td>
-              <td>${element.marks}</td>
-              <td>${element.passing ? "Passed" : "Failed"}</td>
-              <td>${element.email}</td>
-        `;
-
-    tableBody.appendChild(tableRow);
-    table.appendChild(tableBody);
-  });
-
-  tableContainer.append(table);
-}
-
-// sort and display the males and females
+// sort by gender and display the males and females
 function sortByGender() {
   let females = students.filter((element) => element.gender == "Female");
   let males = students.filter((element) => element.gender == "Male");
 
   tableContainer.innerHTML = "";
 
-  displayStudentInformationByGender(females);
-  displayStudentInformationByGender(males);
+  displayStudentInformation(females);
+  displayStudentInformation(males);
 }
 
 sortByGenderBtn.addEventListener("click", sortByGender);
